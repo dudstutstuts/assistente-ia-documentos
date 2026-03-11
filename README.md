@@ -1,8 +1,8 @@
-Assistente de IA para PDF
+## Assistente de IA para PDF
 Nele, a pessoa envia um arquivo PDF e pode fazer perguntas sobre o conteúdo.
 O sistema lê o documento e responde com base nas informações encontradas no próprio arquivo.
 
-Como funciona
+## Como funciona
 Você faz upload do PDF
 O assistente processa e entende o conteúdo
 Você envia perguntas em linguagem natural
