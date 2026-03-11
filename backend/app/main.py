@@ -17,11 +17,22 @@ app = FastAPI()
 # simple in-memory store for uploaded document text
 DOCUMENT_STORE: dict = {}
 
+frontend_urls = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+]
+
+extra_frontend_urls = os.getenv("FRONTEND_URLS", "")
+if extra_frontend_urls:
+    frontend_urls.extend(
+        url.strip() for url in extra_frontend_urls.split(",") if url.strip()
+    )
+
 # allow react frontend
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "http://127.0.0.1:3000"],
-    allow_origin_regex=r"https?://(localhost|127\.0\.0\.1)(:\d+)?",
+    allow_origins=frontend_urls,
+    allow_origin_regex=r"https?://(localhost|127\.0\.0\.1)(:\d+)?|https://.*\.vercel\.app",
     allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],

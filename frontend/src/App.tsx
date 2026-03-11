@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import './App.css';
 
+const apiBaseUrl = process.env.REACT_APP_API_URL || 'http://127.0.0.1:8000';
+
 function App() {
   const [file, setFile] = useState<File | null>(null);
   const [question, setQuestion] = useState('');
@@ -26,7 +28,7 @@ function App() {
     const data = new FormData();
     data.append('file', file);
     try {
-      await axios.post('http://127.0.0.1:8000/upload-pdf', data);
+      await axios.post(`${apiBaseUrl}/upload-pdf`, data);
       setStatus('✅ PDF enviado com sucesso! Agora faça sua pergunta.');
       setUploaded(true);
     } catch (error: any) {
@@ -43,7 +45,7 @@ function App() {
     setStatus('🤖 Consultando a IA...');
     setAnswer('');
     try {
-      const resp = await axios.post('http://127.0.0.1:8000/query', { question });
+      const resp = await axios.post(`${apiBaseUrl}/query`, { question });
       if (resp.data?.error) {
         setStatus(`❌ Erro: ${resp.data.error}`);
         return;
